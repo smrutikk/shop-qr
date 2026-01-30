@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<title>Print Document</title>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4 text-center">Print Details</h2>
+    <form action="/send/{{shop_id}}" method="get" class="space-y-4">
+      <div>
+        <label class="block font-medium mb-1">Copies</label>
+        <input type="number" name="copies" required class="w-full border rounded px-3 py-2">
+      </div>
+      <div>
+        <label class="block font-medium mb-1">Color</label>
+        <select name="color" class="w-full border rounded px-3 py-2">
+          <option value="Black & White">Black & White</option>
+          <option value="Color">Color</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium mb-1">Paper Size</label>
+        <select name="paper" class="w-full border rounded px-3 py-2">
+          <option value="A4">A4</option>
+          <option value="A3">A3</option>
+        </select>
+      </div>
+      <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600">Send to WhatsApp</button>
+    </form>
+  </div>
+</body>
+</html>
