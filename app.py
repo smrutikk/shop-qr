@@ -16,7 +16,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
     if Shop.query.first() is None:
-        shop = Shop(name="ABC Xerox", phone="919876543210")
+        shop = Shop(name="ABC Xerox", phone="918888310308")
         db.session.add(shop)
         db.session.commit()
 
