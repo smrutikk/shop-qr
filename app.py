@@ -68,4 +68,4 @@ Paper Size: {paper}
     return redirect(f"https://wa.me/{shop.phone}?text={encoded}")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
