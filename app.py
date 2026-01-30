@@ -13,15 +13,12 @@ else:
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
-@app.before_first_request
-def setup_database():
-    with app.app_context():
-        db.create_all()
-        # seed default shop if empty
-        if Shop.query.first() is None:
-            shop = Shop(name="ABC Xerox", phone="918888310308")
-            db.session.add(shop)
-            db.session.commit()
+with app.app_context():
+    db.create_all()
+    if Shop.query.first() is None:
+        shop = Shop(name="ABC Xerox", phone="919876543210")
+        db.session.add(shop)
+        db.session.commit()
 
 
 FORM_HTML = """
