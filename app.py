@@ -1,14 +1,32 @@
 from flask import Flask, redirect, request, render_template_string
 import urllib.parse
 from models import db, Shop
+import os
 
 app = Flask(__name__)
 
-# DB config (SQLite for now)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if DATABASE_URL:
+    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+
 db.init_app(app)
+
+@app.before_first_request
+def setup_database():
+    db.create_all()
+
+    # seed one shop if DB is empty
+    if Shop.query.first() is None:
+        shop = Shop(name="ABC Xerox", phone="919876543210")
+        db.session.add(shop)
+        db.session.commit()
+
 
 FORM_HTML = """
 <!DOCTYPE html>
