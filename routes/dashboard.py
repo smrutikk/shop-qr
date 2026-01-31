@@ -1,5 +1,8 @@
 from flask import Blueprint, render_template, redirect, session, abort
 from models import db, Shop, PrintRequest
+from zoneinfo import ZoneInfo
+
+IST = ZoneInfo("Asia/Kolkata")
 
 dashboard_routes = Blueprint("dashboard_routes", __name__)
 
@@ -13,9 +16,14 @@ def dashboard(shop_id):
     if not shop:
         abort(404)
 
+    for r in requests:
+        r.ist_time = r.timestamp.astimezone(IST)
+
+
     requests = PrintRequest.query.filter_by(
         shop_id=shop.id
-    ).order_by(PrintRequest.timestamp.desc()).all()
+    ).order_by(PrintRequest.id.asc()).all()
+
 
     return render_template(
         "dashboard.html",
