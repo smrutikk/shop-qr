@@ -4,43 +4,70 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.tailwindcss.com"></script>
-<title>{{shop.name}} - Dashboard</title>
+<title>{{shop.name}} Dashboard</title>
 </head>
+
 <body class="bg-gray-100 min-h-screen p-4">
-  <div class="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4">{{shop.name}} - Print Requests</h2>
-    <table class="min-w-full border-collapse border border-gray-300">
-      <thead class="bg-gray-200">
-        <tr>
-          <th class="border px-4 py-2">ID</th>
-          <th class="border px-4 py-2">Copies</th>
-          <th class="border px-4 py-2">Color</th>
-          <th class="border px-4 py-2">Paper Size</th>
-          <th class="border px-4 py-2">Status</th>
-          <th class="border px-4 py-2">Timestamp</th>
-          <th class="border px-4 py-2">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for req in requests %}
-        <tr class="hover:bg-gray-100">
-          <td class="border px-4 py-2">{{req.id}}</td>
-          <td class="border px-4 py-2">{{req.copies}}</td>
-          <td class="border px-4 py-2">{{req.color}}</td>
-          <td class="border px-4 py-2">{{req.paper_size}}</td>
-          <td class="border px-4 py-2">{{req.status}}</td>
-          <td class="border px-4 py-2">{{req.timestamp}}</td>
-          <td class="border px-4 py-2">
-            {% if req.status == 'Pending' %}
-            <a href="/mark_completed/{{req.id}}" class="text-blue-500 hover:underline">Mark Completed</a>
-            {% else %}
-            <span class="text-green-500 font-bold">Completed</span>
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-4">
+
+    <h1 class="text-2xl font-bold mb-4 text-center">
+      {{shop.name}} – Print Orders
+    </h1>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-sm border">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="px-3 py-2 border">ID</th>
+            <th class="px-3 py-2 border">Copies</th>
+            <th class="px-3 py-2 border">Color</th>
+            <th class="px-3 py-2 border">Paper</th>
+            <th class="px-3 py-2 border">Status</th>
+            <th class="px-3 py-2 border">Time</th>
+            <th class="px-3 py-2 border">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for req in requests %}
+          <tr class="hover:bg-gray-50">
+            <td class="px-3 py-2 border">{{req.id}}</td>
+            <td class="px-3 py-2 border">{{req.copies}}</td>
+            <td class="px-3 py-2 border">{{req.color}}</td>
+            <td class="px-3 py-2 border">{{req.paper_size}}</td>
+
+            <td class="px-3 py-2 border">
+              {% if req.status == 'Pending' %}
+                <span class="px-2 py-1 text-xs rounded bg-yellow-100 text-yellow-700">
+                  Pending
+                </span>
+              {% else %}
+                <span class="px-2 py-1 text-xs rounded bg-green-100 text-green-700">
+                  Completed
+                </span>
+              {% endif %}
+            </td>
+
+            <td class="px-3 py-2 border">
+              {{req.timestamp.strftime('%d %b %H:%M')}}
+            </td>
+
+            <td class="px-3 py-2 border">
+              {% if req.status == 'Pending' %}
+              <a href="/mark_completed/{{req.id}}?token={{shop.token}}"
+                 class="text-blue-600 font-medium hover:underline">
+                 Mark Done
+              </a>
+              {% else %}
+              —
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </body>
 </html>
