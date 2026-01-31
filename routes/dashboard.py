@@ -16,13 +16,13 @@ def dashboard(shop_id):
     if not shop:
         abort(404)
 
-    for r in requests:
-        r.ist_time = r.timestamp.astimezone(IST)
-
 
     requests = PrintRequest.query.filter_by(
         shop_id=shop.id
     ).order_by(PrintRequest.id.asc()).all()
+
+    for r in requests:
+        r.ist_time = r.timestamp.astimezone(IST)
 
 
     return render_template(
