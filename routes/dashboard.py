@@ -48,3 +48,26 @@ def mark_completed(req_id):
     db.session.commit()
 
     return redirect(f"/dashboard/{req.shop_id}")
+
+
+@dashboard_routes.route("/open_whatsapp/<int:req_id>")
+def open_whatsapp(req_id):
+    if "shop_id" not in session:
+        return redirect("/login")
+
+    req = PrintRequest.query.get(req_id)
+    if not req:
+        abort(404)
+
+    if session["shop_id"] != req.shop_id:
+        abort(403)
+
+    # ✅ Mark as completed automatically
+    req.status = "Completed"
+    db.session.commit()
+
+    # ✅ Open WhatsApp chat
+    phone = req.customer_phone  # must be in international format
+    whatsapp_url = f"https://wa.me/{phone}"
+
+    return redirect(whatsapp_url)
