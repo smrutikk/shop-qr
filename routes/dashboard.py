@@ -59,10 +59,17 @@ def open_whatsapp(req_id):
     if session["shop_id"] != req.shop_id:
         abort(403)
 
-    # ✅ Mark as In Progress
+    if not req.customer_phone:
+        return "Customer phone not available", 400
+
+    # Mark as In Progress
     req.status = "In Progress"
     db.session.commit()
 
+    # Ensure full international format (example for India)
     phone = req.customer_phone
-    return redirect(f"https://wa.me/{phone}")
+    if not phone.startswith("+"):
+        phone = "+91" + phone  # adjust for other countries if needed
+    phone = phone.replace(" ", "").replace("-", "")  # remove spaces/dashes
 
+    return redirect(f"https://wa.me/{phone}")

@@ -22,15 +22,22 @@ def send_whatsapp(shop_id):
     color = request.args.get("color")
     paper = request.args.get("paper")
 
-    #if not phone:
-        #return "Customer phone is required", 400
+    if not phone:
+        return "Customer phone is required", 400
 
     if not all([copies, color, paper]):
         return "Missing print details", 400
+    
+    # Prepend +91 for India
+    phone = phone.strip()
+    if len(phone) == 10 and phone.isdigit():
+        phone = f"+91{phone}"
+    else:
+        return "Invalid Indian phone number", 400
 
     new_request = PrintRequest(
         shop_id=shop.id,
-        #customer_phone=phone,
+        customer_phone=phone,
         copies=int(copies),
         color=color,
         paper_size=paper
