@@ -16,22 +16,29 @@ def send_whatsapp(shop_id):
     shop = Shop.query.get(shop_id)
     if not shop:
         return "Shop not found", 404
-
+    
+    phone = request.args.get("phone")
     copies = request.args.get("copies")
     color = request.args.get("color")
     paper = request.args.get("paper")
 
-    # Save request in DB
+    #if not phone:
+        #return "Customer phone is required", 400
+
+    if not all([copies, color, paper]):
+        return "Missing print details", 400
+
     new_request = PrintRequest(
         shop_id=shop.id,
-        copies=copies,
+        #customer_phone=phone,
+        copies=int(copies),
         color=color,
         paper_size=paper
     )
+
     db.session.add(new_request)
     db.session.commit()
 
-    # Prepare WhatsApp message
     message = f"""Hi, I want to print documents.
 Copies: {copies}
 Color: {color}

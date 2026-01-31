@@ -37,17 +37,22 @@
             <td class="px-3 py-2 border">{{req.color}}</td>
             <td class="px-3 py-2 border">{{req.paper_size}}</td>
 
-            <td class="px-3 py-2 border">
-              {% if req.status == 'Pending' %}
-                <span class="px-2 py-1 text-xs rounded bg-yellow-100 text-yellow-700">
-                  Pending
-                </span>
-              {% else %}
-                <span class="px-2 py-1 text-xs rounded bg-green-100 text-green-700">
-                  Completed
-                </span>
-              {% endif %}
-            </td>
+           <td class="px-3 py-2 border">
+  {% if req.status == 'Pending' %}
+    <span class="px-2 py-1 text-xs rounded bg-yellow-100 text-yellow-700">
+      Pending
+    </span>
+  {% elif req.status == 'In Progress' %}
+    <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-700">
+      In Progress
+    </span>
+  {% else %}
+    <span class="px-2 py-1 text-xs rounded bg-green-100 text-green-700">
+      Completed
+    </span>
+  {% endif %}
+</td>
+
 
             <td class="px-3 py-2 border">
               {{ req.ist_time.strftime('%d %b %Y, %I:%M %p') }}
@@ -59,18 +64,25 @@
 
 
             <td class="px-3 py-2 border">
-              {% if req.status == 'Pending' %}
-              <button
-                onclick="openAndDisable(this, '{{req.id}}')"
-                class="text-blue-600 font-medium hover:underline">
-                Open Chat
-              </button>
+  {% if req.status == 'Pending' %}
+    <button
+  onclick="openAndDisable(this, '{{req.id}}')"
+  class="text-blue-600 font-medium hover:underline">
+  Open Chat
+</button>
 
 
-              {% else %}
-              —
-              {% endif %}
-            </td>
+  {% elif req.status == 'In Progress' %}
+    <a href="/mark_completed/{{ req.id }}"
+       class="text-green-600 font-medium hover:underline">
+      Mark Completed
+    </a>
+
+  {% else %}
+    <span class="text-gray-400 text-xs">Done</span>
+  {% endif %}
+</td>
+
           </tr>
           {% endfor %}
         </tbody>
@@ -91,11 +103,11 @@
 
   window.open(`/open_whatsapp/${reqId}`, "_blank");
 
-  // Optional: refresh after 2 seconds to show Completed
   setTimeout(() => {
     window.location.reload();
-  }, 2000);
+  }, 1500);
 }
+
 </script>
 
 </body>

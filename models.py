@@ -13,7 +13,7 @@ class PrintRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'), nullable=False)
 
-    customer_phone = db.Column(db.String(20), nullable=False)  # 👈 NEW
+    customer_phone = db.Column(db.String(20), nullable=True)  # 👈 NEW
 
     copies = db.Column(db.Integer, nullable=False)
     color = db.Column(db.String(20), nullable=False)
