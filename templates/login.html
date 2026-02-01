@@ -1,37 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Shop Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>Shop Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-sm">
-        <h2 class="text-2xl font-bold text-center mb-4">Shopkeeper Login</h2>
+<body class="min-h-screen bg-cover bg-center"
+  style="background-image: url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg');">
 
-        <form method="post" class="space-y-4">
+  <!-- Dark gradient overlay -->
+  <div class="min-h-screen bg-gradient-to-r from-black/70 via-black/40 to-black/20 flex">
+
+    <!-- LEFT : Branding / Message -->
+    <div class="hidden lg:flex flex-col justify-center w-1/2 px-16 text-white">
+      <h1 class="text-5xl font-extrabold leading-tight">
+        Scan.<br>
+        Send.<br>
+        <span class="text-blue-400">Print.</span>
+      </h1>
+
+      <p class="mt-6 text-lg text-gray-200 max-w-md">
+        A smarter way for print shops to manage customer requests using
+        WhatsApp & QR codes.
+      </p>
+
+      <div class="mt-10 flex gap-6 text-sm text-gray-300">
+        <div>
+          <p class="font-semibold text-white">⚡ Faster</p>
+          <p>No queues, no confusion</p>
+        </div>
+        <div>
+          <p class="font-semibold text-white">📱 WhatsApp-first</p>
+          <p>Zero learning curve</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT : Login Panel -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center px-6">
+
+      <!-- Floating Glass Card -->
+      <div class="w-full max-w-md relative">
+
+        <!-- Decorative blur layer -->
+        <div class="absolute -top-6 -left-6 w-full h-full rounded-3xl bg-blue-600/30 blur-2xl"></div>
+
+        <div
+          class="relative bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8">
+
+          <h2 class="text-3xl font-bold text-gray-900">
+            Shop Login
+          </h2>
+          <p class="text-sm text-gray-500 mt-1">
+            Access your print dashboard
+          </p>
+
+          <form method="post" class="mt-6 space-y-5">
+
             <div>
-                <label class="block text-sm font-medium">Phone</label>
-                <input type="text" name="phone" required
-                    class="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-300">
+              <label class="text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                name="phone"
+                placeholder="e.g. 9876543210"
+                required
+                class="mt-1 w-full rounded-xl border px-4 py-3
+                       focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div>
-                <label class="block text-sm font-medium">Password</label>
-                <input type="password" name="password" required
-                    class="w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-300">
+              <label class="text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="••••••••"
+                required
+                class="mt-1 w-full rounded-xl border px-4 py-3
+                       focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             {% if error %}
-                <p class="text-red-500 text-sm text-center">{{ error }}</p>
+              <p class="text-red-500 text-sm text-center">
+                {{ error }}
+              </p>
             {% endif %}
 
-            <button type="submit"
-                class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-                Login
+            <button
+              type="submit"
+              class="w-full py-3 rounded-xl bg-blue-600 text-white
+                     font-semibold tracking-wide
+                     hover:bg-blue-700 transition">
+              Enter Dashboard →
             </button>
-        </form>
+          </form>
+
+          <p class="text-xs text-gray-400 text-center mt-6">
+            Built for Indian print shops 🇮🇳
+          </p>
+        </div>
+      </div>
+
     </div>
+  </div>
 
 </body>
 </html>
