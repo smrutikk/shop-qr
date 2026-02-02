@@ -18,9 +18,9 @@ def send_whatsapp(shop_id):
         return "Shop not found", 404
     
     phone = request.args.get("phone")
-    copies = request.args.get("copies") or "1"
-    color = request.args.get("color") or "Not Specified"
-    paper = request.args.get("paper") or "Not Specified"
+    #copies = request.args.get("copies") or "1"
+    #color = request.args.get("color") or "Not Specified"
+    #paper = request.args.get("paper") or "Not Specified"
 
     if not phone:
         return "Customer phone is required", 400
@@ -38,18 +38,15 @@ def send_whatsapp(shop_id):
     new_request = PrintRequest(
         shop_id=shop.id,
         customer_phone=phone,
-        copies=int(copies),
-        color=color,
-        paper_size=paper
+        #copies=int(copies),
+        #color=color,
+        #paper_size=paper
     )
 
     db.session.add(new_request)
     db.session.commit()
 
     message = f"""Hi, I want to print documents.
-Copies: {copies}
-Color: {color}
-Paper Size: {paper}
 """
     encoded = urllib.parse.quote(message)
     return redirect(f"https://wa.me/{shop.phone}?text={encoded}")

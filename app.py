@@ -27,8 +27,8 @@ with app.app_context():
     db.create_all()
     if Shop.query.first() is None:
         shop = Shop(
-            name="ABC Xerox",
-            phone="918888310308",
+            name="Jai Bajrang Auto Xerox",
+            phone="919226864086",
             password="admin123"
         )
         db.session.add(shop)
