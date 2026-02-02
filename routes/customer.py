@@ -18,15 +18,15 @@ def send_whatsapp(shop_id):
         return "Shop not found", 404
     
     phone = request.args.get("phone")
-    copies = request.args.get("copies")
-    color = request.args.get("color")
-    paper = request.args.get("paper")
+    copies = request.args.get("copies") or "1"
+    color = request.args.get("color") or "Not Specified"
+    paper = request.args.get("paper") or "Not Specified"
 
     if not phone:
         return "Customer phone is required", 400
 
-    if not all([copies, color, paper]):
-        return "Missing print details", 400
+    #if not all([copies, color, paper]):
+     #   return "Missing print details", 400
     
     # Prepend +91 for India
     phone = phone.strip()
