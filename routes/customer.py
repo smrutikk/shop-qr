@@ -46,7 +46,6 @@ def send_whatsapp(shop_id):
     db.session.add(new_request)
     db.session.commit()
 
-    message = f"""Hi, I want to print documents.
-"""
+    message = f"""Hi, I want to print documents."""
     encoded = urllib.parse.quote(message)
     return redirect(f"https://wa.me/{shop.phone}?text={encoded}")
